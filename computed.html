@@ -27,17 +27,17 @@
     methods: {
       bescribe(){
         console.log('methods里的方法使用在数据层{{}} 里时，只要数据变动时（age变动）， 就会执行。消耗性能')
-        console.log('----> 使用bescribe方法')
+        console.log('----》 使用bescribe方法')
         return this.name + ' '+ this.full
       }
     },
     computed:{
       getFullName(){
-        console.log('---> 进入getFullName)
+        console.log('---》 进入getFullName)
         return this.full + ' ' + this.name 
       },
       getSex(){
-        console.log('---> 进入getSex')
+        console.log('---》 进入getSex')
         return this.sex
       }
     }
