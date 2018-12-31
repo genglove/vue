@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>MVVM</title>
+</head>
+<body>
+  <div id="box">
+        <input v-model="val" type="text" @keyup.enter="addList">
+        <button @click="addList">提交</button>
+        <ul>
+            <li v-for="(item, index) in listData">{{item}}</li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.js"></script>
+<script>
+  const M = {
+    val: '',
+    listData: []
+  }
+  const VM = new Vue({
+    el: '#box',
+    data: M,
+    methods: {
+      addList(){
+        this.listData.push(this.val);
+        this.val = ''
+      }
+    }
+  })
+  
+  /*
+    渐进式：
+            有小项目的功能  中项目的功能   大项目的功能
+  */
+  /*
+    
+    MVVM
+    M:  Model   (数据)----> data
+    V:  View    (视图)----> <div id="box">...省略代码</div>
+    VM: ViewModel     ----> 数据和视图的桥梁,  new Vue()
+  */
+</script>
