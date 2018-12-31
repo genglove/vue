@@ -9,9 +9,9 @@
 <body>
   <div id="container">
     
-    <p>methods展示数据：{{ bescribe() }},{{getAge()}}</p>
+    <p>methods展示数据：{{ bescribe() }},{{age}}</p>
     <p>computed展示数据：{{ getFullName}}, {{getSex}}</p>
-    <h1>methods和computed的区别：methods会频繁被(无关的)调用</h1>
+    <h1>methods和computed的区别：methods会频繁被调用（无关的数据一变动就会执行）</h1>
   </div>
 </body>
 </html>
@@ -26,13 +26,9 @@
     },
     methods: {
       bescribe(){
-        console.log('methods里的函数使用在数据层{{}} 里时，只有视图渲染时，就会执行。消耗性能')
+        console.log('methods里的方法使用在数据层{{}} 里时，只要数据变动时（age变动）， 就会执行。消耗性能')
         console.log('----> 使用bescribe方法')
         return this.name + ' '+ this.full
-      },
-      getAge(){
-        console.log('---> 进入getAge方法')
-        return this.age
       }
     },
     computed:{
