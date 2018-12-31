@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性和监听</title>
+</head>
+<body>
+  <div id="container">
+    
+    <p>methods展示数据：{{ bescribe() }},{{getAge()}}</p>
+    <p>computed展示数据：{{ getFullName}}, {{getSex}}</p>
+    <h1>methods和computed的区别：methods会频繁被(无关的)调用</h1>
+  </div>
+</body>
+</html>
+<script>
+  const vm = new Vue({
+    el: "#container",
+    data:{
+      sex: 'mon',
+      name: 'xu',
+      full: 'hg',
+      age: 18
+    },
+    methods: {
+      bescribe(){
+        console.log('methods里的函数使用在数据层{{}} 里时，只有视图渲染时，就会执行。消耗性能')
+        console.log('----> 使用bescribe方法')
+        return this.name + ' '+ this.full
+      },
+      getAge(){
+        console.log('---> 进入getAge方法')
+        return this.age
+      }
+    },
+    computed:{
+      getFullName(){
+        console.log('---> 进入getFullName)
+        return this.full + ' ' + this.name 
+      },
+      getSex(){
+        console.log('---> 进入getSex')
+        return this.sex
+      }
+    }
+  })
+</script>
