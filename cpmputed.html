@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性和监听</title>
+</head>
+<body>
+    <div id="container">
+        <p>{{ describe }}, {{age}}</p>
+    </div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.js"></script>
+<script>
+    const M = {
+        full: 'xu',
+        name: 'haigeng',
+        age: 18
+    }
+
+    const vm = new Vue({
+        el: '#container',
+        data: M,
+        computed: {
+            describe:{
+              get(){
+                return this.full + ' ' + this.name
+              },
+              set(val){
+                let arr = val.split(' ');
+                this.name = arr[0];
+                this.full = arr[1];
+              }
+            }
+        }
+    })
+    /*
+      在控制台输入如下代码
+      vm.describe = 'chen jin' 
+      
+    */ 
+    
+</script>
