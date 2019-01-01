@@ -25,9 +25,11 @@
         data: M,
         computed: {
             describe:{
+              // 读取
               get(){
                 return this.full + ' ' + this.name
               },
+              // 设置
               set(val){
                   console.log('进入set');
                 let arr = val.split(' ');
@@ -39,7 +41,7 @@
         }
     })
     /*
-      在控制台输入如下代码
+      在控制台输入如下代码【describe一改变就能执行到get()，也可以传参】
       vm.describe = 'chen jin'                  // '进入set'
                     
     */ 
