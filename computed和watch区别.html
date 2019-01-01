@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>computed和methods区别？</title>
+</head>
+<body>
+  <div id="container">
+    <h1>watch比computed 有优势在 当数据变化时 执行异步方法，用watch最有用 </h1>
+    <input type="text" v-model="info">
+    <p>{{message}}</p>
+  </div>
+</body>
+<html>
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.js"></script>
+<script>
+  const vm = new Vue({
+    el: '#container',
+    data: {
+      info: '',
+      message: '没有输入'
+    },
+    watch: {
+      info(){
+        this.message = '输入当中...';
+        this.result()
+      }
+    },
+    methods: {
+      result(){
+        let timer = null, vm = this;
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+          vm.message = vm.info
+        },3000)
+      }
+    }
+  })
+</script>
+
+
