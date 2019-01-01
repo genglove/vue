@@ -29,6 +29,7 @@
                 return this.full + ' ' + this.name
               },
               set(val){
+                  console.log('进入set');
                 let arr = val.split(' ');
                 this.name = arr[0];
                 this.full = arr[1];
@@ -39,8 +40,8 @@
     })
     /*
       在控制台输入如下代码
-      vm.describe = 'chen jin' 
-      
+      vm.describe = 'chen jin'                  // '进入set'
+                    
     */ 
     
 </script>
