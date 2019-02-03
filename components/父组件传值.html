@@ -1,0 +1,46 @@
+<html>
+<head></head>
+<body>
+<div id="wrapper">
+  <com-local :list="val" @getData="received"></com-local> 
+</div>
+</body>
+</html>
+<script>
+
+// 局部组件
+const comLocal = {
+  data(){           // data用函数 并且返回一个对象的形式
+    return {
+      num: 123
+    }
+  },
+  props:['val'],
+  methods:{
+    sendData(){
+      this.$emit('getData', this.num)
+    }
+  },
+  tempalte: `
+  <div>
+    <div>{{num}}</div>
+    <div @click="sendData">{{val}}</div>
+  </div>
+  `
+}
+// 
+const vm = new Vue({
+  el: '#wrapper',
+  data: {
+    msg: '父值'
+  },
+  methods:{
+    received(childData){
+      console.log(childData)
+    }
+  },
+  components: {
+    comLocal
+  }
+})
+</script>
