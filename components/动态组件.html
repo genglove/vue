@@ -1,0 +1,54 @@
+<html>
+<head></head>
+<body>
+<div id="wrapper">
+  <comLocal>
+    <p slot="test">这是段落</p>
+  </comLocal>
+  <comone>
+    <template slot-scope="list">
+      <li>{{list.item}} - {{list.index}}</li>
+    </template>
+  </comone>
+</div>
+</body>
+</html>
+<script>
+// 剧名插槽
+const comLocal = {
+  data(){
+    return {
+      num:123
+    }
+  },
+  template: `<div>
+    <slot name="test"></slot> 
+  </div>`
+}
+
+// 动态组件
+const = comOne = {
+  data(){
+    return {
+      list = ['apple', 'banana', 'orange']
+    }
+  },
+  template: `<div>
+    <ul>
+     <slot v-for="(item, index) in list"
+      :item="item"
+      :index="index"
+     ></slot>
+    </ul>
+  </div>`
+}
+
+const vm = new Vue({
+  el: '#wrapper',
+  data:{},
+  methods:{},
+  components: {
+    comLocal
+  }
+})
+</script>
