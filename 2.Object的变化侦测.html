@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+</body>
+</html>
+<script>
+// js对象发生时，我通过什么知道的呢？
+// 通过Object.defineProperty()监控对象的变化
+function defineFunc(obj, key, value){
+    if(toString.call(value) == "[object Object]"){
+        for(let k in value){
+            defineFunc(value, k, value[k]);
+        }
+    }
+    Object.defineProperty(obj, key, {
+        get(){
+            console.log('读取值....', value)
+            return value
+        },
+        set(newVal){
+            console.log('设置值.....', newVal)
+            value = newVal
+        }
+    })
+}
+
+let obj = {a:1, b:2, c:{d:4}}
+for(let key in obj){
+    defineFunc(obj, key, obj[key])
+}
+
+
+// 数组数据的追踪，js中改变数组数据有七个：push,pop,shift,unshift,sort,reverse,splice
+// 先存数组的方法
+// 对应数组的方法 重写方法覆盖原来的方法，之前储存方法放在重写方法执行就可以了
+let arrayProto = Array.prototype
+let arrayMethods = Object.create(arrayProto);
+['push', 'pop', 'shift', 'unshift', 'sort', 'reverse', 'splice'].forEach(i => {
+    let fun = arrayMethods[i]
+    arrayMethods[i] = function(...param){
+        console.log('执行自己操作')
+        fun.apply(this,param)
+    }
+})
+let arr = [12,3,];
+arr.__proto__ = arrayMethods;
+
+
+
+</script>
