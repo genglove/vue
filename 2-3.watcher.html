@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Watcher</title>
+</head>
+<body>
+    <div id="app">
+        <h1></h1>
+    </div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- <script type="module" src="./baseVue.js"></script> -->
+<!-- <script type="module" src="./test.js"></script> -->
+<!-- <script type="module" src="./bundle.js"></script> -->
+
+<script type="module">
+// 切记script标签加入type="module",这ES6语法
+
+//import {Vue} from './Vue.js'
+
+
+
+// 用法 第一个参数数据属性字符串，第二个参数回调函数
+// 当数据发生变化时，就执行到回调函数，回调函数的第一个参数是新值，第二参数是旧值
+/* vm.$watch('obj.a.b', function(newVal, oldVal){
+    console.log('this------->', this)
+    console.log('old-------->', oldVal)
+    console.log('new------->', newVal)
+}) */
+
+
+// vm：Component                // vue实例
+// expOrFn: string | Function   // 属性名称
+// cb: Function                 // 回调函数
+/* class Watcher{
+    constructor(vm, expOrFn, cb){
+        this.vm = vm;
+        this.cb = cb;
+        this.deps = []
+        this.depIds = new Set()
+        this.getter = parsePath(expOrFn)
+        this.value = this.get()
+    }
+    addDep (dep){
+        const id = dep.id
+        if(!this.depIds.has(id)){
+            this.depIds.add(id)
+            this.deps.push(dep)
+            dep.addSub(this)
+        }
+    }
+    get(){
+        window.target = this;
+        let value = this.getter.call(this.vm, this.vm)
+        window.target = undefined
+        return value
+    }
+    update(){
+        console.log('更新')
+        let oldVal = this.value;
+        this.value = this.get();
+        this.cb.call(this.vm, this.value, oldVal)
+    }
+}
+const bilRE = /[^\w.$]/
+function parsePath(path){
+    if(bilRE.test(path)) return;
+    let arr = path.split('.')
+    return function(obj){
+        
+        for(let i=0; i<arr.length; i++){
+            if(!obj) return;
+            obj = obj[arr[i]]
+        }
+        return obj
+    }
+} */
+
+
+
+// 前面说的依赖，就是watcher
+// watcher是一个中介角色，数据发生变化时通知它，然后它通知其他地方。
+const vm = new Vue({
+    data:{
+        msg: 'hello Vue!',
+        a: 1,
+        b: 2,
+        obj: {
+            a: 11
+        }
+    }
+})
+
+vm.$watch('obj', function(newVal, oldVal){
+    console.log('newVal---->', newVal)
+    console.log('oldVal---->', oldVal)
+})
+
+
+window.vm = vm;
+</script>
+
+
+
+
+

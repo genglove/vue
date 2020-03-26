@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件基础与插槽</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <my-one>匿名插槽</my-one>
+
+        <my-two>
+            <template v-slot:header><h1>头部</h1></template>
+            <p>中间</p>
+            <template v-slot:footer><h1>尾部</h1></template>
+        </my-two>
+
+        <my-three>
+            <template v-slot:defalut="slotProps">{{slotProps.obj.b}}</template>
+        </my-three> -->
+
+        <my-four>
+            <template v-slot="obj">{{obj}}</template>
+            <template v-slot:footer="obj">{{obj}}</template>
+        </my-four>
+        <hr/>
+
+        <p>其它示例：</p>
+        <my-five>
+            <template v-slot="{todo}">
+                <span v-if="todo.isComplete">√</span>
+                {{todo.text}}
+            </template>
+        </my-five>
+        <hr/>
+
+        <p>废弃语法：</p>
+        <my-six>
+            <template slot="header"><p>头部</p></template>
+        </my-six>
+    </div>
+</body>
+</html>
+<!-- <script src=""></script> -->
+<script type="module">
+import 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js'
+// 匿名插槽
+Vue.component('my-one', {
+    template: `
+    <div>
+        <slot></slot>
+    </div>
+    `
+})
+// 具名插槽
+Vue.component('my-two', {
+    template:`
+    <div>
+        <slot name="header"></slot>
+        <slot></slot>
+        <slot name="footer"></slot>
+    </div>
+    `
+})
+
+// 默认内容插槽
+Vue.component('my-three', {
+    data () {
+        return {
+            obj: {
+                a: '默认值',
+                b: '修改插槽值'
+            }
+        }
+    },
+    template: `
+    <div>
+        <button>
+            <slot :obj="obj">{{obj.a}}</slot>
+        </button>
+    </div>`
+})
+//  作用预插槽
+
+// 解构插槽Prop  (es6解构赋值) 
+// 内部工作原理：function(slotProps){ //插槽内容... }
+Vue.component('my-four', {
+    data(){
+        return {
+            obj: {
+                a: '默认值',
+                b: '解构赋值'
+            },
+            arr: [{c:'第三个值'}]
+        }
+    },
+    template:`
+    <div>
+        <p>
+            <slot :objs="obj">{{obj.a}}</slot>
+        </p>
+        <p>
+            <slot name="footer" :arrs="arr">{{arr[0].c}}</slot>
+            <slot name="footer" :new="obj.a"></slot>
+        </p>
+    </div>`
+})
+
+// 其它例子
+Vue.component('my-five', {
+    data(){
+        return {
+            filteredTodos: [
+                {id: 1, text: 'Arya', isComplete: true},
+                {id: 2, text: 'Stark', isComplete: false}
+            ]
+        }
+    },
+    template: `
+    <div>
+        <ul>
+            <li v-for="todo in filteredTodos" :key="todo.id">
+                <slot :todo="todo">{{todo.text}}</slot>
+            </li>
+        </ul>
+    </div>
+    `
+})
+
+// 已经废弃的语法，但2.X版本还是支持的，3.0就不支持了
+Vue.component('my-six', {
+    template: `
+    <div>
+        <slot></slot>
+        <p>尾部</p>
+    </div>`
+})
+
+var vm = new Vue({
+    el: '#app'
+})
+</script>
+
